@@ -1,0 +1,193 @@
+/*
+  Hi again! 👋 This is the CSS file — it's all about STYLE.
+  CSS takes the plain HTML skeleton and gives it colors, spacing,
+  rounded corners, and gentle movement. Play with the numbers below
+  and refresh the page to see what each one does — that's the best way to learn!
+*/
+
+/*
+  ":root" is the top of the document. Defining "variables" here (they start with --)
+  lets us reuse the same colors everywhere. Change one value and it updates the whole app.
+  Try swapping --accent to your favourite color!
+*/
+:root {
+  --bg: #f4f6f9;            /* the soft page background */
+  --surface: #ffffff;      /* the white calculator card */
+  --text: #1f2933;         /* main text color (a soft near-black) */
+  --muted: #7b8794;        /* lighter text for less important things */
+  --accent: #4f8cff;       /* our calm blue accent for active states */
+  --accent-soft: #eaf1ff;  /* a very light tint of the accent */
+  --operator: #eef2ff;     /* background for the +, −, ×, ÷ keys */
+  --shadow: 0 12px 30px rgba(31, 41, 51, 0.08); /* the soft floating shadow */
+  --radius: 16px;          /* how rounded our corners are */
+}
+
+/*
+  The "universal selector" (*) targets every element.
+  box-sizing: border-box makes width/height include padding — it just makes
+  layouts far easier to reason about. Most developers set this once at the top.
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+  We center the calculator on the screen using Flexbox.
+  display:flex + place-items/justify-content is the modern, easy way to center things
+  both horizontally and vertically. min-height:100vh means "at least the full screen tall".
+*/
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* keeps the card off the edges on small screens */
+}
+
+/*
+  This is the calculator "card". max-width keeps it a comfortable size on desktop,
+  while width:100% lets it shrink to fit narrow phones — that's responsive design.
+*/
+.calculator {
+  background: var(--surface);
+  width: 100%;
+  max-width: 340px;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* A simple, friendly heading. letter-spacing adds a touch of polish. */
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+/*
+  The display area. We use a bigger, right-aligned font like a real calculator.
+  "overflow" + text handling keeps very long numbers from breaking the layout.
+*/
+.display {
+  width: 100%;
+  border: none;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: right;
+  padding: 18px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 18px;
+  outline: none;
+  overflow-x: auto; /* long results can scroll instead of overflowing */
+}
+
+/*
+  THE KEYPAD — this is a CSS Grid.
+  grid-template-columns: repeat(4, 1fr) means "4 equal columns".
+  gap adds even spacing between every button. Grid is perfect for
+  neat button layouts like a keypad. 💡
+*/
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/*
+  The base look for EVERY button: rounded, no harsh border,
+  and a gentle transition so color and size changes feel smooth, not jumpy.
+  "cursor: pointer" shows a little hand so it feels clickable.
+*/
+.btn {
+  border: none;
+  border-radius: 12px;
+  background: #f0f2f5;
+  color: var(--text);
+  font-size: 1.15rem;
+  font-weight: 500;
+  padding: 16px 0;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+/*
+  :hover runs when the mouse is over a button.
+  We lighten the background slightly to give friendly feedback.
+*/
+.btn:hover {
+  background: #e6e9ee;
+}
+
+/*
+  :active runs at the exact moment you press a button.
+  We shrink it a tiny bit (scale 0.96) so it feels like a real, tactile press.
+  This is the "gentle, functional animation" from the brief.
+*/
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* The operator keys (+, −, ×, ÷) get the soft accent tint so they stand out. */
+.btn-operator {
+  background: var(--operator);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.btn-operator:hover {
+  background: #e3e9ff;
+}
+
+/* AC and DEL are "function" keys — a slightly muted style keeps them calm. */
+.btn-function {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/*
+  The equals key is the star of the show, so it gets the full accent color.
+  White text on blue makes it pop as the clear "give me the answer" button.
+*/
+.btn-equals {
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-equals:hover {
+  background: #3f7bf0;
+}
+
+/*
+  grid-column: span 2 makes a key stretch across two columns,
+  just like on a phone calculator. We use it for both the wide "0"
+  and the wide "=" so the bottom row fills the width neatly. Grid makes this easy.
+*/
+.btn-zero,
+.btn-equals {
+  grid-column: span 2;
+}
+
+/*
+  RESPONSIVE TOUCH: on very small screens we trim the padding a little
+  so everything still fits comfortably. @media is how CSS reacts to screen size.
+*/
+@media (max-width: 360px) {
+  .calculator {
+    padding: 18px;
+  }
+  .btn {
+    padding: 14px 0;
+    font-size: 1.05rem;
+  }
+}

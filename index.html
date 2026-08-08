@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+  Welcome! 👋 This is the HTML file — the "skeleton" of our calculator.
+  HTML describes WHAT is on the page (buttons, the display, headings),
+  while CSS handles how it looks and JavaScript handles what it DOES.
+  Read the comments as you go — they explain the key ideas in plain language.
+-->
+<html lang="en">
+<head>
+  <!-- charset tells the browser how to read our characters (letters, symbols, emojis). -->
+  <meta charset="UTF-8" />
+
+  <!-- This "viewport" line makes the page scale nicely on phones and tablets. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Learn Calculator</title>
+
+  <!-- We link our separate stylesheet here. Keeping CSS in its own file keeps things tidy. -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!--
+    <main> is a "semantic" tag: it tells browsers and screen readers
+    "this is the main content of the page". Using meaningful tags like this
+    is a great habit — it makes your code easier to read and more accessible.
+  -->
+  <main class="calculator">
+
+    <!-- A friendly heading so it's clear what this little app is. -->
+    <h1 class="title">Calculator</h1>
+
+    <!--
+      The display shows what you're typing and the answer.
+      "readonly" means you can't type directly into it with the keyboard —
+      you use the buttons instead, just like a real calculator.
+      aria-label helps screen readers announce this element clearly.
+    -->
+    <input
+      id="display"
+      class="display"
+      type="text"
+      value="0"
+      readonly
+      aria-label="Calculator display"
+    />
+
+    <!--
+      This <div> is our keypad. Every button below has a "data-*" attribute.
+      data-* attributes are a neat way to attach little labels to elements
+      that our JavaScript can read later. For example data-action="add"
+      lets the script know "this button means addition".
+    -->
+    <div class="keypad">
+
+      <!--
+        The keypad is a 4-column grid (see .keypad in the CSS), so we lay the
+        buttons out row by row here. Read left-to-right, top-to-bottom:
+        it matches exactly what you'll see on screen.
+      -->
+
+      <!-- Row 1: the "helper" keys plus divide and multiply. -->
+      <button class="btn btn-function" data-action="clear">AC</button>
+      <button class="btn btn-function" data-action="delete">DEL</button>
+      <button class="btn btn-operator" data-action="divide">÷</button>
+      <button class="btn btn-operator" data-action="multiply">×</button>
+
+      <!-- Row 2: numbers 7-8-9, with minus on the right. -->
+      <button class="btn" data-number="7">7</button>
+      <button class="btn" data-number="8">8</button>
+      <button class="btn" data-number="9">9</button>
+      <button class="btn btn-operator" data-action="subtract">−</button>
+
+      <!-- Row 3: numbers 4-5-6, with plus on the right. -->
+      <button class="btn" data-number="4">4</button>
+      <button class="btn" data-number="5">5</button>
+      <button class="btn" data-number="6">6</button>
+      <button class="btn btn-operator" data-action="add">+</button>
+
+      <!-- Row 4: numbers 1-2-3, and the decimal point. -->
+      <button class="btn" data-number="1">1</button>
+      <button class="btn" data-number="2">2</button>
+      <button class="btn" data-number="3">3</button>
+      <button class="btn" data-number=".">.</button>
+
+      <!--
+        Row 5: a wide "0" and a wide "=".
+        Each of these stretches across two columns using a CSS class
+        (grid-column: span 2) — just like the buttons on a phone calculator.
+      -->
+      <button class="btn btn-zero" data-number="0">0</button>
+      <button class="btn btn-equals" data-action="equals">=</button>
+    </div>
+  </main>
+
+  <!--
+    We load the JavaScript at the very END of the <body>.
+    Why? So the browser builds all the buttons above FIRST,
+    then runs our script — that way the script can find the elements it needs.
+  -->
+  <script src="script.js"></script>
+</body>
+</html>
